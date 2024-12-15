@@ -1,0 +1,45 @@
+<div class="bookings-container">
+  <h2>Create New Booking</h2>
+  <form (ngSubmit)="createBooking()">
+    <select [(ngModel)]="newBooking.roomId" name="roomId" required>
+      <option value="">Select Room</option>
+      @for (room of rooms; track room.id) {
+        <option [value]="room.id">{{room.roomNumber}} - {{room.type}}</option>
+      }
+    </select>
+
+    <select [(ngModel)]="newBooking.guestId" name="guestId" required>
+      <option value="">Select Guest</option>
+      @for (guest of guests; track guest.id) {
+        <option [value]="guest.id">{{guest.firstName}} {{guest.lastName}}</option>
+      }
+    </select>
+
+    <input type="date" [(ngModel)]="newBooking.checkIn" name="checkIn" required>
+    <input type="date" [(ngModel)]="newBooking.checkOut" name="checkOut" required>
+    <button type="submit">Create Booking</button>
+  </form>
+
+  <h2>Bookings List</h2>
+  <div class="bookings-list">
+    @for (booking of bookings; track booking.id) {
+      <div class="booking-card" [class]="booking.status.toLowerCase()">
+        <div class="booking-header">
+          <h3>Booking #{{booking.id}}</h3>
+          <span class="status">{{booking.status}}</span>
+        </div>
+        <div class="booking-details">
+          <p>Room: {{booking.room?.roomNumber}}</p>
+          <p>Guest: {{booking.guest?.firstName}} {{booking.guest?.lastName}}</p>
+          <p>Check-in: {{booking.checkIn | date}}</p>
+          <p>Check-out: {{booking.checkOut | date}}</p>
+        </div>
+        <div class="booking-actions">
+          <button (click)="updateBookingStatus(booking.id, 'CHECKED_IN')">Check In</button>
+          <button (click)="updateBookingStatus(booking.id, 'CHECKED_OUT')">Check Out</button>
+          <button (click)="updateBookingStatus(booking.id, 'CANCELLED')">Cancel</button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

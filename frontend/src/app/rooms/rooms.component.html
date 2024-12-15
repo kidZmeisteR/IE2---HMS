@@ -1,0 +1,13 @@
+<div class="rooms-container">
+    <h2>Rooms Management</h2>
+    <div class="rooms-grid">
+      @for (room of rooms; track room.id) {
+        <div class="room-card" [class]="room.status.toLowerCase()">
+          <h3>Room {{ room.roomNumber }}</h3>
+          <p>Type: {{ room.type }}</p>
+          <p>Price: ${{ room.price }}</p>
+          <p>Status: {{ room.status }}</p>
+        </div>
+      }
+    </div>
+  </div>

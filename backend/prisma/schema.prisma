@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model booking {
+  id        Int            @id @default(autoincrement())
+  roomId    Int
+  guestId   Int
+  checkIn   DateTime
+  checkOut  DateTime
+  status    booking_status
+  createdAt DateTime       @default(now())
+  updatedAt DateTime
+  guest     guest          @relation(fields: [guestId], references: [id], map: "Booking_guestId_fkey")
+  room      room           @relation(fields: [roomId], references: [id], map: "Booking_roomId_fkey")
+
+  @@index([guestId], map: "Booking_guestId_fkey")
+  @@index([roomId], map: "Booking_roomId_fkey")
+}
+
+model guest {
+  id        Int       @id @default(autoincrement())
+  firstName String
+  lastName  String
+  email     String    @unique(map: "Guest_email_key")
+  phone     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime
+  booking   booking[]
+}
+
+model room {
+  id         Int         @id @default(autoincrement())
+  roomNumber String      @unique(map: "Room_roomNumber_key")
+  type       room_type
+  price      Float
+  status     room_status
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime
+  booking    booking[]
+}
+
+model staff {
+  id        Int        @id @default(autoincrement())
+  username  String     @unique(map: "Staff_username_key")
+  password  String
+  firstName String
+  lastName  String
+  role      staff_role
+  email     String     @unique(map: "Staff_email_key")
+  phone     String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime
+}
+
+enum room_type {
+  SINGLE
+  DOUBLE
+  SUITE
+}
+
+enum room_status {
+  AVAILABLE
+  OCCUPIED
+  MAINTENANCE
+}
+
+enum booking_status {
+  CONFIRMED
+  CHECKED_IN
+  CHECKED_OUT
+  CANCELLED
+}
+
+enum staff_role {
+  ADMIN
+  RECEPTIONIST
+  HOUSEKEEPER
+  MANAGER
+}

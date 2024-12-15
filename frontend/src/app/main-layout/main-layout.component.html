@@ -1,0 +1,19 @@
+<div class="dashboard">
+    <nav class="sidebar">
+      <div class="logo">Hotel Management</div>
+      <div class="user-info">
+        <span>{{ (currentUser$ | async)?.firstName }} {{ (currentUser$ | async)?.lastName }}</span><br>
+        <small>{{ (currentUser$ | async)?.role }}</small>
+      </div>
+      <ul class="nav-links">
+        <li><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
+        <li><a routerLink="/dashboard/rooms" routerLinkActive="active">Rooms</a></li>
+        <li><a routerLink="/dashboard/bookings" routerLinkActive="active">Bookings</a></li>
+        <li><a routerLink="/dashboard/guests" routerLinkActive="active">Guests</a></li>
+        <li><a (click)="logout()" class="logout">Logout</a></li>
+      </ul>
+    </nav>
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>

@@ -1,0 +1,29 @@
+.bookings-container {
+    padding: 20px;
+  }
+  .bookings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  .booking-card {
+    padding: 15px;
+    border-radius: 8px;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  .booking-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.875rem;
+  }
+  .confirmed { border-left: 4px solid #2196F3; }
+  .checked_in { border-left: 4px solid #4CAF50; }
+  .checked_out { border-left: 4px solid #9E9E9E; }
+  .cancelled { border-left: 4px solid #f44336; }

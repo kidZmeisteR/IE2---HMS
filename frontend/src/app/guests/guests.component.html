@@ -1,0 +1,42 @@
+<div class="guests-container">
+  <h2>Create New Guest</h2>
+  <form (ngSubmit)="createGuest()" #guestForm="ngForm">
+    <div class="form-group">
+      <input type="text" [(ngModel)]="newGuest.firstName" name="firstName" placeholder="First Name" required>
+      <input type="text" [(ngModel)]="newGuest.lastName" name="lastName" placeholder="Last Name" required>
+      <input type="email" [(ngModel)]="newGuest.email" name="email" placeholder="Email" required>
+      <input type="tel" [(ngModel)]="newGuest.phone" name="phone" placeholder="Phone" required>
+      <button type="submit">Add Guest</button>
+    </div>
+  </form>
+
+  <h2>Guests List</h2>
+  <div class="guests-list">
+    @for (guest of guests; track guest.id) {
+      <div class="guest-card">
+        @if (editingGuest?.id === guest.id) {
+          <div class="guest-edit">
+            <input type="text" [(ngModel)]="editingGuest!.firstName" placeholder="First Name">
+            <input type="text" [(ngModel)]="editingGuest!.lastName" placeholder="Last Name">
+            <input type="email" [(ngModel)]="editingGuest!.email" placeholder="Email">
+            <input type="tel" [(ngModel)]="editingGuest!.phone" placeholder="Phone">
+            <div class="edit-actions">
+              <button (click)="updateGuest()">Save</button>
+              <button (click)="editingGuest = null">Cancel</button>
+            </div>
+          </div>
+        } @else {
+          <div class="guest-info">
+            <h3>{{ guest.firstName }} {{ guest.lastName }}</h3>
+            <p>Email: {{ guest.email }}</p>
+            <p>Phone: {{ guest.phone }}</p>
+            <div class="guest-actions">
+              <button (click)="startEdit(guest)">Edit</button>
+              <button (click)="deleteGuest(guest.id)">Delete</button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>
